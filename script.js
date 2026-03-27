@@ -8,7 +8,9 @@ function save() {
   localStorage.setItem("golfData", JSON.stringify(appData));
 }
 
-/* PLAYERS */
+/* ==========================
+   PLAYERS
+========================== */
 
 function addPlayer() {
   const input = document.getElementById("playerName");
@@ -21,8 +23,6 @@ function addPlayer() {
   input.value = "";
 
   save();
-
-  // HARD refresh UI (fixes iPhone issue)
   renderPlayers();
   renderPlayerSelect();
 }
@@ -66,7 +66,9 @@ function renderPlayerSelect() {
   });
 }
 
-/* GAME START */
+/* ==========================
+   START GAME
+========================== */
 
 function startGame() {
   const selected = [...document.querySelectorAll("input[type=checkbox]:checked")]
@@ -89,18 +91,22 @@ function startGame() {
   window.location.href = "game.html";
 }
 
-/* GAME */
+/* ==========================
+   GAME RENDER (FIXED)
+========================== */
 
 function renderGame() {
+  const container = document.getElementById("playersGame");
+
+  // ONLY run on game page
+  if (!container) return;
+
   const game = appData.currentGame;
 
   if (!game) {
     window.location.href = "index.html";
     return;
   }
-
-  const container = document.getElementById("playersGame");
-  if (!container) return;
 
   container.innerHTML = "";
 
@@ -128,6 +134,10 @@ function renderGame() {
     ((game.hole + 1) / 18) * 100 + "%";
 }
 
+/* ==========================
+   SCORE
+========================== */
+
 function changeScore(i, change) {
   let val = appData.currentGame.players[i].scores[appData.currentGame.hole];
   val = Math.max(0, val + change);
@@ -135,6 +145,10 @@ function changeScore(i, change) {
   save();
   renderGame();
 }
+
+/* ==========================
+   HOLES
+========================== */
 
 function nextHole() {
   if (appData.currentGame.hole < 17) {
@@ -154,7 +168,9 @@ function prevHole() {
   }
 }
 
-/* END GAME */
+/* ==========================
+   END GAME
+========================== */
 
 function endGame() {
   const results = appData.currentGame.players.map(p => ({
@@ -175,7 +191,9 @@ function endGame() {
   window.location.href = "games.html";
 }
 
-/* GAMES */
+/* ==========================
+   GAMES LIST
+========================== */
 
 function renderGames() {
   const div = document.getElementById("gamesList");
@@ -207,7 +225,9 @@ function deleteGame(i) {
   renderGames();
 }
 
-/* INIT */
+/* ==========================
+   INIT
+========================== */
 
 renderPlayers();
 renderPlayerSelect();
