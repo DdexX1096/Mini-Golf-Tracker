@@ -100,7 +100,9 @@ function startGame() {
 
 function renderGame() {
   const game = appData.currentGame;
-  if (!game) return;
+  if (!game) {
+  window.location.href = "index.html";
+  return;
 
   const container = document.getElementById("playersGame");
   if (!container) return;
