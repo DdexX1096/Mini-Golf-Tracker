@@ -1,3 +1,6 @@
+/* ==========================
+   DATA SETUP
+========================== */
 let appData = JSON.parse(localStorage.getItem("golfData")) || {
   players: [],
   games: [],
@@ -14,8 +17,9 @@ function save() {
 
 function addPlayer() {
   const input = document.getElementById("playerName");
-  const name = input.value.trim();
+  if (!input) return;
 
+  const name = input.value.trim();
   if (!name) return;
 
   appData.players.push(name);
@@ -26,8 +30,8 @@ function addPlayer() {
   renderPlayerSelect();
 }
 
-function deletePlayer(i) {
-  appData.players.splice(i, 1);
+function deletePlayer(index) {
+  appData.players.splice(index, 1);
   save();
   renderPlayers();
   renderPlayerSelect();
@@ -43,7 +47,7 @@ function renderPlayers() {
     list.innerHTML += `
       <div class="player">
         ${p}
-        <button onclick="deletePlayer(${i})">x</button>
+        <button onclick="deletePlayer(${i})">&times;</button>
       </div>
     `;
   });
@@ -57,16 +61,16 @@ function renderPlayerSelect() {
 
   appData.players.forEach((p) => {
     div.innerHTML += `
-      <label class="player">
+      <label class="player select-player">
+        <span>${p}</span>
         <input type="checkbox" value="${p}">
-        ${p}
       </label>
     `;
   });
 }
 
 /* ==========================
-   GAME START
+   START GAME
 ========================== */
 
 function startGame() {
@@ -91,7 +95,7 @@ function startGame() {
 }
 
 /* ==========================
-   GAME PLAY
+   GAME RENDER
 ========================== */
 
 function renderGame() {
@@ -109,7 +113,7 @@ function renderGame() {
     container.innerHTML += `
       <div class="card">
         <h3>${p.name}</h3>
-        <p>Total: ${total}</p>
+        <p>Total: ${total} strokes</p>
 
         <div class="score-row">
           <button class="score-btn" onclick="changeScore(${i}, -1)">−</button>
@@ -131,6 +135,10 @@ function renderGame() {
     ((game.hole + 1) / 18) * 100 + "%";
 }
 
+/* ==========================
+   SCORE CONTROLS
+========================== */
+
 function changeScore(playerIndex, change) {
   const game = appData.currentGame;
   let val = game.players[playerIndex].scores[game.hole];
@@ -144,6 +152,10 @@ function changeScore(playerIndex, change) {
   renderGame();
 }
 
+/* ==========================
+   HOLE NAVIGATION
+========================== */
+
 function nextHole() {
   const game = appData.currentGame;
 
@@ -153,6 +165,16 @@ function nextHole() {
     renderGame();
   } else {
     endGame();
+  }
+}
+
+function prevHole() {
+  const game = appData.currentGame;
+
+  if (game.hole > 0) {
+    game.hole--;
+    save();
+    renderGame();
   }
 }
 
@@ -191,8 +213,14 @@ function renderGames() {
 
   div.innerHTML = "";
 
-  appData.games.forEach(g => {
-    let html = `<div class="card"><h3>${g.date}</h3>`;
+  appData.games.forEach((g, index) => {
+    let html = `
+      <div class="card">
+        <div style="display:flex;justify-content:space-between;align-items:center;">
+          <h3>${g.date}</h3>
+          <button class="secondary" onclick="deleteGame(${index})">Delete</button>
+        </div>
+    `;
 
     g.results.forEach((r, i) => {
       html += `<p>${i+1}. ${r.name} - ${r.score}</p>`;
@@ -201,6 +229,14 @@ function renderGames() {
     html += `</div>`;
     div.innerHTML += html;
   });
+}
+
+function deleteGame(index) {
+  if (!confirm("Delete this game?")) return;
+
+  appData.games.splice(index, 1);
+  save();
+  renderGames();
 }
 
 /* ==========================
