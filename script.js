@@ -1,6 +1,3 @@
-/* ==========================
-   DATA SETUP
-========================== */
 let appData = JSON.parse(localStorage.getItem("golfData")) || {
   players: [],
   games: [],
@@ -11,9 +8,7 @@ function save() {
   localStorage.setItem("golfData", JSON.stringify(appData));
 }
 
-/* ==========================
-   PLAYERS
-========================== */
+/* PLAYERS */
 
 function addPlayer() {
   const input = document.getElementById("playerName");
@@ -26,6 +21,8 @@ function addPlayer() {
   input.value = "";
 
   save();
+
+  // HARD refresh UI (fixes iPhone issue)
   renderPlayers();
   renderPlayerSelect();
 }
@@ -69,9 +66,7 @@ function renderPlayerSelect() {
   });
 }
 
-/* ==========================
-   START GAME
-========================== */
+/* GAME START */
 
 function startGame() {
   const selected = [...document.querySelectorAll("input[type=checkbox]:checked")]
@@ -94,15 +89,15 @@ function startGame() {
   window.location.href = "game.html";
 }
 
-/* ==========================
-   GAME RENDER
-========================== */
+/* GAME */
 
 function renderGame() {
   const game = appData.currentGame;
+
   if (!game) {
-  window.location.href = "index.html";
-  return;
+    window.location.href = "index.html";
+    return;
+  }
 
   const container = document.getElementById("playersGame");
   if (!container) return;
@@ -115,15 +110,11 @@ function renderGame() {
     container.innerHTML += `
       <div class="card">
         <h3>${p.name}</h3>
-        <p>Total: ${total} strokes</p>
+        <p>Total: ${total}</p>
 
         <div class="score-row">
           <button class="score-btn" onclick="changeScore(${i}, -1)">−</button>
-
-          <div class="score-display">
-            ${p.scores[game.hole]}
-          </div>
-
+          <div class="score-display">${p.scores[game.hole]}</div>
           <button class="score-btn" onclick="changeScore(${i}, 1)">+</button>
         </div>
       </div>
@@ -137,32 +128,17 @@ function renderGame() {
     ((game.hole + 1) / 18) * 100 + "%";
 }
 
-/* ==========================
-   SCORE CONTROLS
-========================== */
-
-function changeScore(playerIndex, change) {
-  const game = appData.currentGame;
-  let val = game.players[playerIndex].scores[game.hole];
-
-  val += change;
-  if (val < 0) val = 0;
-
-  game.players[playerIndex].scores[game.hole] = val;
-
+function changeScore(i, change) {
+  let val = appData.currentGame.players[i].scores[appData.currentGame.hole];
+  val = Math.max(0, val + change);
+  appData.currentGame.players[i].scores[appData.currentGame.hole] = val;
   save();
   renderGame();
 }
 
-/* ==========================
-   HOLE NAVIGATION
-========================== */
-
 function nextHole() {
-  const game = appData.currentGame;
-
-  if (game.hole < 17) {
-    game.hole++;
+  if (appData.currentGame.hole < 17) {
+    appData.currentGame.hole++;
     save();
     renderGame();
   } else {
@@ -171,23 +147,17 @@ function nextHole() {
 }
 
 function prevHole() {
-  const game = appData.currentGame;
-
-  if (game.hole > 0) {
-    game.hole--;
+  if (appData.currentGame.hole > 0) {
+    appData.currentGame.hole--;
     save();
     renderGame();
   }
 }
 
-/* ==========================
-   END GAME
-========================== */
+/* END GAME */
 
 function endGame() {
-  const game = appData.currentGame;
-
-  const results = game.players.map(p => ({
+  const results = appData.currentGame.players.map(p => ({
     name: p.name,
     score: p.scores.reduce((a,b) => a+b, 0)
   }));
@@ -200,14 +170,12 @@ function endGame() {
   });
 
   appData.currentGame = null;
-
   save();
+
   window.location.href = "games.html";
 }
 
-/* ==========================
-   GAMES LIST
-========================== */
+/* GAMES */
 
 function renderGames() {
   const div = document.getElementById("gamesList");
@@ -215,17 +183,17 @@ function renderGames() {
 
   div.innerHTML = "";
 
-  appData.games.forEach((g, index) => {
+  appData.games.forEach((g, i) => {
     let html = `
       <div class="card">
-        <div style="display:flex;justify-content:space-between;align-items:center;">
+        <div style="display:flex;justify-content:space-between;">
           <h3>${g.date}</h3>
-          <button class="secondary" onclick="deleteGame(${index})">Delete</button>
+          <button class="secondary" onclick="deleteGame(${i})">Delete</button>
         </div>
     `;
 
-    g.results.forEach((r, i) => {
-      html += `<p>${i+1}. ${r.name} - ${r.score}</p>`;
+    g.results.forEach((r, j) => {
+      html += `<p>${j+1}. ${r.name} - ${r.score}</p>`;
     });
 
     html += `</div>`;
@@ -233,17 +201,13 @@ function renderGames() {
   });
 }
 
-function deleteGame(index) {
-  if (!confirm("Delete this game?")) return;
-
-  appData.games.splice(index, 1);
+function deleteGame(i) {
+  appData.games.splice(i, 1);
   save();
   renderGames();
 }
 
-/* ==========================
-   INIT
-========================== */
+/* INIT */
 
 renderPlayers();
 renderPlayerSelect();

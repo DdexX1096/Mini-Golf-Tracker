@@ -21,8 +21,7 @@
   <div class="card">
     <h3>Add Player</h3>
 
-    <!-- FIXED FORM (THIS SOLVES YOUR ISSUE) -->
-    <form onsubmit="addPlayer(); return false;" style="display:flex; gap:10px;">
+    <form id="playerForm" style="display:flex; gap:10px;">
       <input id="playerName" placeholder="Enter player name">
       <button type="submit">Add</button>
     </form>
@@ -33,6 +32,14 @@
 
 </div>
 
-<script src="script.js?v=5"></script>
+<script src="script.js?v=7"></script>
+
+<script>
+document.getElementById("playerForm").addEventListener("submit", function(e) {
+  e.preventDefault();
+  addPlayer();
+});
+</script>
+
 </body>
 </html>
