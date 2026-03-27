@@ -6,6 +6,7 @@ body {
   background: #f5f1e8;
   margin: 0;
   color: #2f2f2f;
+  -webkit-tap-highlight-color: transparent;
 }
 
 /* ==========================
@@ -54,34 +55,15 @@ nav a {
 }
 
 /* ==========================
-   HEADINGS
+   TEXT
 ========================== */
 h2, h3 {
   margin: 0 0 10px 0;
 }
 
-/* ==========================
-   PLAYER ROW
-========================== */
-.player {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 14px 16px;
-  border-radius: 14px;
-  background: #eae6df;
-  margin-top: 10px;
-  font-size: 16px;
-}
-
-/* DELETE BUTTON */
-.player button {
-  background: #3f8f4f;
-  width: 44px;
-  height: 44px;
-  border-radius: 12px;
-  font-size: 16px;
-  padding: 0;
+p {
+  margin: 5px 0;
+  font-size: 14px;
 }
 
 /* ==========================
@@ -95,10 +77,9 @@ input {
   outline: none;
 }
 
-/* INPUT + BUTTON ROW */
+/* INPUT ROW */
 .card input {
   width: calc(100% - 110px);
-  margin-right: 10px;
 }
 
 /* ==========================
@@ -114,32 +95,64 @@ button {
   font-size: 15px;
   font-weight: 600;
   transition: 0.15s;
+  touch-action: manipulation;
 }
 
 button:active {
   transform: scale(0.96);
 }
 
-/* FIX ADD BUTTON SIZE */
-.card button {
-  width: 90px;
+/* FULL WIDTH */
+.full {
+  width: 100%;
 }
 
-/* SECONDARY BUTTON */
-button.secondary {
+/* SECONDARY */
+.secondary {
   background: #d6d3cc;
   color: #2f2f2f;
 }
 
 /* ==========================
-   CHECKBOX ROW (NEW GAME PAGE)
+   PLAYER LIST
 ========================== */
-label.player {
+.player {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 14px 16px;
+  border-radius: 14px;
+  background: #eae6df;
+  margin-top: 10px;
+  font-size: 16px;
+}
+
+/* DELETE BUTTON */
+.player button {
+  width: 40px;
+  height: 40px;
+  padding: 0;
+  border-radius: 10px;
+  font-size: 18px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* ==========================
+   PLAYER SELECT (NEW GAME)
+========================== */
+.select-player {
   cursor: pointer;
 }
 
-label.player input {
-  transform: scale(1.2);
+.select-player span {
+  flex: 1;
+}
+
+.select-player input {
+  width: 22px;
+  height: 22px;
 }
 
 /* ==========================
@@ -157,6 +170,7 @@ label.player input {
   height: 50px;
   font-size: 20px;
   background: #2f6f3e;
+  border-radius: 12px;
 }
 
 .score-display {
@@ -170,8 +184,42 @@ label.player input {
 }
 
 /* ==========================
+   GAME NAV BUTTONS
+========================== */
+.container > div[style*="display:flex"] button {
+  height: 50px;
+}
+
+/* ==========================
    PROGRESS BAR
 ========================== */
-#progressBar {
+.progress-bg {
+  background: #ddd;
+  height: 6px;
+  border-radius: 10px;
+  margin-top: 10px;
+}
+
+.progress-fill {
+  height: 6px;
   background: #3f8f4f;
+  border-radius: 10px;
+  width: 0%;
+}
+
+/* ==========================
+   GAME DELETE BUTTON
+========================== */
+.card .secondary {
+  padding: 8px 12px;
+  font-size: 13px;
+  border-radius: 10px;
+}
+
+/* ==========================
+   SMOOTH UI
+========================== */
+* {
+  box-sizing: border-box;
+  transition: all 0.15s ease;
 }
