@@ -1,0 +1,177 @@
+/* ==========================
+   BASE
+========================== */
+body {
+  font-family: -apple-system, BlinkMacSystemFont, sans-serif;
+  background: #f5f1e8;
+  margin: 0;
+  color: #2f2f2f;
+}
+
+/* ==========================
+   HEADER
+========================== */
+header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 16px 20px;
+  background: #2f6f3e;
+  color: white;
+}
+
+header h2 {
+  font-size: 18px;
+  margin: 0;
+}
+
+nav a {
+  margin-left: 14px;
+  text-decoration: none;
+  color: white;
+  font-size: 14px;
+  opacity: 0.9;
+}
+
+/* ==========================
+   LAYOUT
+========================== */
+.container {
+  padding: 20px;
+  max-width: 420px;
+  margin: auto;
+}
+
+/* ==========================
+   CARDS
+========================== */
+.card {
+  background: #ffffff;
+  padding: 20px;
+  border-radius: 20px;
+  margin-bottom: 18px;
+  box-shadow: 0 6px 18px rgba(0,0,0,0.06);
+}
+
+/* ==========================
+   HEADINGS
+========================== */
+h2, h3 {
+  margin: 0 0 10px 0;
+}
+
+/* ==========================
+   PLAYER ROW
+========================== */
+.player {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 14px 16px;
+  border-radius: 14px;
+  background: #eae6df;
+  margin-top: 10px;
+  font-size: 16px;
+}
+
+/* DELETE BUTTON */
+.player button {
+  background: #3f8f4f;
+  width: 44px;
+  height: 44px;
+  border-radius: 12px;
+  font-size: 16px;
+  padding: 0;
+}
+
+/* ==========================
+   INPUT
+========================== */
+input {
+  padding: 12px;
+  border-radius: 12px;
+  border: 1px solid #ddd;
+  font-size: 16px;
+  outline: none;
+}
+
+/* INPUT + BUTTON ROW */
+.card input {
+  width: calc(100% - 110px);
+  margin-right: 10px;
+}
+
+/* ==========================
+   BUTTONS
+========================== */
+button {
+  background: #3f8f4f;
+  border: none;
+  padding: 14px;
+  border-radius: 14px;
+  color: white;
+  cursor: pointer;
+  font-size: 15px;
+  font-weight: 600;
+  transition: 0.15s;
+}
+
+button:active {
+  transform: scale(0.96);
+}
+
+/* FIX ADD BUTTON SIZE */
+.card button {
+  width: 90px;
+}
+
+/* SECONDARY BUTTON */
+button.secondary {
+  background: #d6d3cc;
+  color: #2f2f2f;
+}
+
+/* ==========================
+   CHECKBOX ROW (NEW GAME PAGE)
+========================== */
+label.player {
+  cursor: pointer;
+}
+
+label.player input {
+  transform: scale(1.2);
+}
+
+/* ==========================
+   SCORE CONTROLS
+========================== */
+.score-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-top: 12px;
+}
+
+.score-btn {
+  width: 50px;
+  height: 50px;
+  font-size: 20px;
+  background: #2f6f3e;
+}
+
+.score-display {
+  flex: 1;
+  text-align: center;
+  font-size: 26px;
+  font-weight: bold;
+  padding: 10px;
+  border-radius: 12px;
+  background: #eae6df;
+}
+
+/* ==========================
+   PROGRESS BAR
+========================== */
+#progressBar {
+  background: #3f8f4f;
+}

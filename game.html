@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Game</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<header>
+  <h2>Toucan Mini Golf</h2>
+</header>
+
+<div class="container">
+
+  <div class="card">
+    <h2 id="holeTitle">Hole 1</h2>
+    <div id="progressText">1 of 18</div>
+    <div style="background:#ddd;height:6px;border-radius:10px;margin-top:10px;">
+      <div id="progressBar" style="height:6px;background:#7a4b2b;width:5%;border-radius:10px;"></div>
+    </div>
+  </div>
+
+  <div id="playersGame"></div>
+
+  <button onclick="nextHole()" style="width:100%;margin-top:20px;">
+    Next hole →
+  </button>
+
+  <button onclick="endGame()" style="width:100%;margin-top:10px;background:#ddd;color:#333;">
+    View games
+  </button>
+
+</div>
+
+<script src="script.js"></script>
+</body>
+</html>
