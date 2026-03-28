@@ -22,20 +22,25 @@
     </div>
   </div>
 
+  <!-- VIEW MODE LABEL -->
+  <div id="viewModeLabel" style="display:none; margin-bottom:10px; font-weight:bold;">
+    Viewing Completed Game
+  </div>
+
   <div id="playersGame"></div>
 
   <!-- NAV BUTTONS -->
-  <div style="display:flex; gap:10px; margin-top:20px;">
+  <div id="navButtons" style="display:flex; gap:10px; margin-top:20px;">
     <button class="secondary" style="flex:1;" onclick="prevHole()">← Back</button>
     <button style="flex:1;" onclick="nextHole()">Next →</button>
   </div>
 
-  <button class="secondary full" style="margin-top:10px;" onclick="endGame()">
+  <button id="endGameBtn" class="secondary full" style="margin-top:10px;" onclick="endGame()">
     End Game
   </button>
 
 </div>
 
-<script src="script.js?v=8"></script>
+<script src="script.js?v=11"></script>
 </body>
 </html>
