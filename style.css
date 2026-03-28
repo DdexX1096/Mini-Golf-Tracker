@@ -6,6 +6,8 @@ body {
   background: #f6f1eb;
   margin: 0;
   color: #3b2a1f;
+  -webkit-tap-highlight-color: transparent;
+  touch-action: manipulation;
 }
 
 /* ==========================
@@ -90,6 +92,9 @@ button {
   font-size: 16px;
   font-weight: 600;
   transition: 0.15s;
+  touch-action: manipulation;
+  -webkit-user-select: none;
+  user-select: none;
 }
 
 button:active {
